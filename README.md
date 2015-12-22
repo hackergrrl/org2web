@@ -2,18 +2,18 @@
 
 As a command:
 ```
-$ npm install -g org2html
+$ npm install -g org2web
 ```
 
 As a module:
 ```
-$ npm install org2html
+$ npm install org2web
 ```
 
 # Usage
 
 ```
-$ org2html todo.org
+$ org2web todo.org
 
 (html output of todo.org)
 ```

@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "bin": {
-    "org2html": "bin/cmd.js"
+    "org2web": "bin/cmd.js"
   },
   "scripts": {
     "test": "tape test/*.js"
