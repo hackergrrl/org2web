@@ -1,0 +1,16 @@
+{
+  "name": "org2web",
+  "description": "convert an emacs orgmode file to a minimal website",
+  "version": "0.0.0",
+  "repository": {
+    "url": "git://github.com/noffle/org2web.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tape": "*"
+  }
+}
