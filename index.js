@@ -48,6 +48,9 @@ function org2web() {
       }
     }
 
+    var tagRegex = /:(\S+):/g
+    line = line.replace(tagRegex, '<b style="float:right">:$1:</b>')
+
     this.push(line)
 
     this.push('</font>')
