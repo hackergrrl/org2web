@@ -1,4 +1,3 @@
-var fs = require('fs')
 var linestream = require('line-stream')
 var through = require('through2')
 var pumpify = require('pumpify')
@@ -63,10 +62,3 @@ module.exports = function () {
     transform
   ])
 }
-
-var file = fs.createReadStream(process.argv[2])
-var transform = module.exports()
-
-file
-  .pipe(transform)
-  .pipe(process.stdout)
