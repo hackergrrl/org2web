@@ -24,9 +24,11 @@ function org2web() {
       firstLine = false
     }
 
+    // newlines to br
     var line = chunk.toString()
     line = line.replace(/\n/g, '<br/>')
 
+    // done/not-done keywords
     for (var i in notDoneKeywords) {
       line = line.replace(new RegExp(notDoneKeywords[i]), '<b><font color=red>' + notDoneKeywords[i] + '</font></b>')
     }
@@ -34,6 +36,7 @@ function org2web() {
       line = line.replace(new RegExp(doneKeywords[i]), '<b><font color=green>' + doneKeywords[i] + '</font></b>')
     }
 
+    // color or indent based on item depth
     if (/^\* /.test(line)) {
       depth = 1
       this.push('<font color=blue>')
@@ -48,11 +51,14 @@ function org2web() {
       }
     }
 
+    // tags
     var tagRegex = /:(\S+):/g
     line = line.replace(tagRegex, '<b style="float:right">:$1:</b>')
 
+    // the final line
     this.push(line)
 
+    // close font changes
     this.push('</font>')
 
     cb()
