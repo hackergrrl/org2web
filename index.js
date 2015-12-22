@@ -1,21 +1,12 @@
-var http = require('http')
 var fs = require('fs')
 var linestream = require('line-stream')
 var through = require('through2')
-
-var file = fs.createReadStream(process.argv[2])
-var ls = linestream()
-var transform = org2web()
-
-file
-  .pipe(ls)
-  .pipe(transform)
-  .pipe(process.stdout)
+var pumpify = require('pumpify')
 
 var doneKeywords = ['DONE']
 var notDoneKeywords = ['TODO', 'WAITING', 'STARTED']
 
-function org2web() {
+module.exports = function () {
   var firstLine = true
   var depth = 0
   var transform = through(function(chunk, enc, cb) {
@@ -26,7 +17,7 @@ function org2web() {
 
     // newlines to br
     var line = chunk.toString()
-    line = line.replace(/\n/g, '<br/>')
+    line = line.replace(/\n/g, '<br/>\n')
 
     // done/not-done keywords
     for (var i in notDoneKeywords) {
@@ -66,5 +57,16 @@ function org2web() {
   function flush(cb) {
     this.push('</code></html>')
   })
-  return transform
+
+  return pumpify([
+    linestream(),
+    transform
+  ])
 }
+
+var file = fs.createReadStream(process.argv[2])
+var transform = module.exports()
+
+file
+  .pipe(transform)
+  .pipe(process.stdout)
