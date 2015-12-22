@@ -9,7 +9,10 @@
   "scripts": {
     "test": "tape test/*.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "line-stream": "^1.0.0",
+    "through2": "^2.0.0"
+  },
   "devDependencies": {
     "tape": "*"
   }
