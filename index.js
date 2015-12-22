@@ -12,11 +12,13 @@ file
   .pipe(transform)
   .pipe(process.stdout)
 
+var doneKeywords = ['DONE']
+var notDoneKeywords = ['TODO', 'WAITING', 'STARTED']
+
 function org2web() {
   var firstLine = true
   var depth = 0
   var transform = through(function(chunk, enc, cb) {
-    // process.stdout.write(chunk.toString())
     if (firstLine) {
       this.push('<html><meta name="viewport" content="width=device-width, initial-scale=1"><code>')
       firstLine = false
@@ -25,16 +27,25 @@ function org2web() {
     var line = chunk.toString()
     line = line.replace(/\n/g, '<br/>')
 
-    line = line.replace(/TODO/g, '<b><font color=red>TODO</font></b>')
-    line = line.replace(/DONE/g, '<b><font color=green>DONE</font></b>')
+    for (var i in notDoneKeywords) {
+      line = line.replace(new RegExp(notDoneKeywords[i]), '<b><font color=red>' + notDoneKeywords[i] + '</font></b>')
+    }
+    for (var i in doneKeywords) {
+      line = line.replace(new RegExp(doneKeywords[i]), '<b><font color=green>' + doneKeywords[i] + '</font></b>')
+    }
 
     if (/^\* /.test(line)) {
       depth = 1
       this.push('<font color=blue>')
     }
-    if (/^\*\* /.test(line)) {
+    else if (/^\*\* /.test(line)) {
       depth = 2
       this.push('<font color=green>')
+    }
+    else {
+      for (var i=0; i < depth + 2; i++) {
+        this.push('&nbsp;')
+      }
     }
 
     this.push(line)
@@ -42,9 +53,9 @@ function org2web() {
     this.push('</font>')
 
     cb()
+  },
+  function flush(cb) {
+    this.push('</code></html>')
   })
-  // transform.on('end', function () {
-  //   this.push('</code></html>')
-  // })
   return transform
 }
