@@ -10,13 +10,13 @@ module.exports = function () {
   var depth = 0
   var transform = through(function(chunk, enc, cb) {
     if (firstLine) {
-      this.push('<html><meta name="viewport" content="width=device-width, initial-scale=1"><code>')
+      this.push('<html><meta name="viewport" content="width=device-width, initial-scale=1"><code>\n')
       firstLine = false
     }
 
     // newlines to br
     var line = chunk.toString()
-    line = line.replace(/\n/g, '<br/>\n')
+    line = line.replace(/\n/g, '<br/>')
 
     // done/not-done keywords
     for (var i in notDoneKeywords) {
@@ -50,6 +50,9 @@ module.exports = function () {
 
     // close font changes
     this.push('</font>')
+
+    // push a newline. not needed for html, but it makes human interactive use more pleasant.
+    this.push('\n')
 
     cb()
   },
