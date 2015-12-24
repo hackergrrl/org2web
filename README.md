@@ -17,12 +17,17 @@ on stdin and transforms it to HTML in a streaming fashion.
 
 # Installation
 
-As a command:
+## Shell Command
+
 ```
 $ npm install -g org2web
 ```
 
-As a module:
+You'll need [NodeJS](https://nodejs.org/en/) if you don't have it.
+
+
+## Node Module
+
 ```
 $ npm install org2web
 ```
