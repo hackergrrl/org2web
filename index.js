@@ -58,7 +58,7 @@ module.exports = function () {
   },
   function flush(cb) {
     this.push('</code></html>')
-    this.push(null)
+    cb()
   })
 
   return pumpify([
