@@ -57,17 +57,21 @@ $ org2web
 
 ## Module
 
+Write a simple http server that outputs org files from disk as HTML!
+
 ```js
 var org2web = require('org2web')
-var Readable = require('stream').Readable
+var http = require('http')
+var fs = require('fs')
 
-var data = new Readable()
-
-data.push('* TODO write readme for org2web\n')
-data.push('surely nobody will notice\n')
-data.push(null)
-
-data.pipe(org2web()).pipe(process.stdout)
+http.createServer(function (req, res) {
+  var filename = req.url.substring(1)
+  if (fs.existsSync(filename)) {
+    fs.createReadStream(filename).pipe(org2web()).pipe(res)
+  } else {
+    res.end('no such file')
+  }
+}).listen(7000)
 ```
 
 # API
