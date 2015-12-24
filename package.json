@@ -1,7 +1,7 @@
 {
   "name": "org2web",
   "description": "convert an emacs orgmode file to a minimal website",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "repository": {
     "url": "git://github.com/noffle/org2web.git"
   },
