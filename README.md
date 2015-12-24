@@ -2,6 +2,8 @@
 
 > Transform stream that reads Emacs org data and writes desktop/mobile-friendly HTML.
 
+![screenshot](https://github.com/noffle/noffle.github.io/raw/master/screenshots/org2web.png)
+
 
 # Background
 
